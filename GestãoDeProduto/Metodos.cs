@@ -83,13 +83,49 @@ namespace GestãoDeProduto
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show($"Erro ao realizar login -> {ex.Message}");
+                return false;
             }
         }
 
+        public bool cadastrar()
+        {
+            try
+            {
+                using (MySqlConnection conexaoBanco = new ConexaoBD().Conectar())
+                {
+                    string senhaCripto = CriptografarSenha(Senha);
+                    string sqlInsert = "INSERT INTO usuarios (nome, email, cpf, usuario, senha) VALUES (@nome, @email, @cpf, @usuario, @senha)";
+
+                    MySqlCommand comandoSql = new MySqlCommand(sqlInsert, conexaoBanco);
+
+                    comandoSql.Parameters.AddWithValue("@nome", Nome);
+                    comandoSql.Parameters.AddWithValue("@email", Email);
+                    comandoSql.Parameters.AddWithValue("@cpf", Cpf);
+                    comandoSql.Parameters.AddWithValue("@usuario", Usuario);
+                    comandoSql.Parameters.AddWithValue("@senha", Senha);
+
+                    int resultado = comandoSql.ExecuteNonQuery();
+
+                    if (resultado > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao cadastrar usuário -> {ex.Message}");
+                return false;
+            }
+        }
         public static bool ValidarEmail(string email)
         {
             string emailValido = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace GestãoDeProduto
 {
-    public partial class UCLogin : Form1
+    public partial class UCLogin : telaCadastro
     {
         public UCLogin()
         {
@@ -19,6 +19,25 @@ namespace GestãoDeProduto
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (!txtUsuarioEmail.Text.Equals("") && txtSenha.Text.Equals(""))
+                {
+                    Metodos metodo = new Metodos();
+                    metodo.Email = txtUsuarioEmail.Text;
+                    metodo.Usuario = txtUsuarioEmail.Text;
+                    metodo.Senha = txtSenha.Text;
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
 
         }
 

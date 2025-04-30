@@ -1,6 +1,6 @@
 ﻿namespace GestãoDeProduto
 {
-    partial class Form1
+    partial class telaCadastro
     {
         /// <summary>
         ///  Required designer variable.
